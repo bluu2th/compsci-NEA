@@ -6,8 +6,8 @@ app = Flask(__name__)
 
 # Home page
 @app.route("/")
-def hello_world():
-    return render_template("hello.html")
+def home_page():
+    return render_template("home_page.html")
 
 
 # A page listing all mental health resources from the website
@@ -25,4 +25,9 @@ def hello(name=None):
     return render_template("hello.html", person=name)
 
 # 
-@app.route("")
+@app.route("/helping_out_others/")
+def help_resources():
+    help_resources = [
+
+    ]
+    return render_template("help_resources.html")

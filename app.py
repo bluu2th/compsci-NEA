@@ -22,6 +22,7 @@ def resources():
     the_resources = [
     {"name": "NHS Mental Health", "url": "https://www.nhs.uk/mental-health/"},
     {"name": "Mind UK", "url": "https://www.mind.org.uk/"},
+    {"name": "", "url": ""},
 ]
     return render_template("resources.html", resources = the_resources)
 
@@ -29,6 +30,17 @@ def resources():
 @app.route("/helping_out_others/")
 def help_resources():
     help_resources = [
-        "hello.com"
+        {"name": "", "url": ""},
+        {"name": "", "url": ""},
+        {"name": "", "url": ""},
     ]
     return render_template("help_resources.html")
+
+@app.route("/contact_us/")
+def contact_us():
+    return render_template("contact_us.html")
+
+
+@app.route("/test/")
+def test():
+    return render_template("test.html")

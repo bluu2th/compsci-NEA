@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OpenDoor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='test.css') }}">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="icon">🚪</span>
+            <span class="brand">OpenDoor</span>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="/resources/"><button>Resources</button></a>
+            <a href="/helping_out_others/"><button>Help Others</button></a>
+            <a href="/contact/"><button>Contact Us</button></a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <div class="chat-container">
+        <div class="messages" id="messages"></div>
+
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button id="sendBtn">Send</button>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,1 +1,14 @@
 <!--html code for resources for those in need-->
+<head>
+        <title>Mental Health Resources</title>
+        <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1> Here are some resources that may help you... </h1>
+    <p> If you're struggling, you may feel lost or alone. Here are some resources that may help with what you are going through: </p>
+    <ul>
+        {% for item in resources %}
+        <li><a href="{{item.url}}" target="_blank">{{item.name}}</a></li>
+        {% endfor %}
+    </ul>
+</body>

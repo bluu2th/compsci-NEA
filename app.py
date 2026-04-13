@@ -4,6 +4,12 @@ import json
 
 app = Flask(__name__)
 
+# Test route 
+# @app.route("/hello/")
+# @app.route("/hello/<name>")
+# def hello(name=None):
+#     return render_template("hello.html", person=name)
+
 # Home page
 @app.route("/")
 def home_page():
@@ -14,20 +20,15 @@ def home_page():
 @app.route("/resources/")
 def resources():
     the_resources = [
-    
+    {"name": "NHS Mental Health", "url": "https://www.nhs.uk/mental-health/"},
+    {"name": "Mind UK", "url": "https://www.mind.org.uk/"},
 ]
     return render_template("resources.html", resources = the_resources)
-
-# Test route 
-# @app.route("/hello/")
-# @app.route("/hello/<name>")
-# def hello(name=None):
-#     return render_template("hello.html", person=name)
 
 # A page listing all mental health resources for people to help out others (secondary stakeholders)
 @app.route("/helping_out_others/")
 def help_resources():
     help_resources = [
-
+        "hello.com"
     ]
     return render_template("help_resources.html")

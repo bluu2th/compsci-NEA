@@ -30,11 +30,11 @@ def resources():
 @app.route("/helping_out_others/")
 def help_resources():
     help_resources = [
-        {"name": "", "url": ""},
+        {"name": "test", "url": "https://www.youtube.com/"},
         {"name": "", "url": ""},
         {"name": "", "url": ""},
     ]
-    return render_template("help_resources.html")
+    return render_template("help_resources.html", help_resources = help_resources)
 
 @app.route("/contact_us/")
 def contact_us():

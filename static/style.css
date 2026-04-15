@@ -7,6 +7,36 @@ body {
     padding: 0;
 }
 
-/* h1{
-    
-} */
+/* navigation bar */
+.navigation_bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* logo on the navigation bar*/
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* buttons on the navigation bar */
+.navigation_buttons button {
+    margin-left: 12px;
+    padding: 8px 16px;
+    border: none;
+    background: #e5e5e5;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* if buttons on the navigation bar are hovered over, it will give a more clean feel */
+.navigation_buttons button:hover {
+    background: #d4d4d4;
+}

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, url_for
+from flask import Flask, jsonify, render_template, url_for, request
 import sqlite3
 import json
 
@@ -58,6 +58,52 @@ resources = [
     }
 ]
     
+
+
+# Processing all together
+def process_message(user_message, resources_list):
+    category = classify_message(user_message)
+    reply_text = generate_reply(category)
+    matched = get_resources(category, resources_list)
+
+    return reply_text, matched
+
+# Home page
+@app.route("/")
+def home_page():
+    return render_template("home_page.html")
+
+@app.post("/chat/")
+def chat():
+    user_msg = request.json["message"]
+    reply, matched = process_message(user_msg, resources)
+    return {"reply": reply, "resources": resources}
+
+# A page listing all mental health resources from the website (mainly for primary stakeholders)
+@app.route("/resources/")
+def resources_list():
+    return render_template("resources.html", resources = resources)
+
+# A page listing all mental health resources for people to help out others (secondary stakeholders)
+@app.route("/helping_out_others/")
+def help_resources():
+    help_resources = [
+        {"name": "", "url": ""},
+        {"name": "", "url": ""},
+        {"name": "", "url": ""},
+        {"name": "", "url": ""},
+        {"name": "", "url": ""},
+        {"name": "", "url": ""},
+        {"name": "", "url": ""},
+        {"name": "", "url": ""},
+    ]
+    return render_template("help_resources.html", help_resources = help_resources)
+
+@app.route("/contact_us/")
+def contact_us():
+    return render_template("contact_us.html")
+
+
 # Algorithm to determine which resources to give
 # Classify the message to give resources
 def classify_message(user_message):
@@ -85,10 +131,10 @@ def classify_message(user_message):
     # If none found
     return "general"
 
-def get_resources(category, resources_list):
+def get_resources(category, resources):
     matched_resources = []
 
-    for item in resources_list:
+    for item in resources:
         if category in item["tags"]:
             matched_resources.append(item)
 
@@ -118,55 +164,6 @@ def generate_reply(category):
         "Thank you for sharing how you're feeling. Here are some resources "
         "that might be helpful."
     )
-
-# Processing all together
-def process_message(user_message, resources_list):
-    category = classify_message(user_message)
-    reply_text = generate_reply(category)
-    matched = get_resources(category, resources_list)
-
-    return reply_text, matched
-
-# Home page
-@app.route("/")
-def home_page():
-    return render_template("home_page.html")
-
-
-# A page listing all mental health resources from the website (mainly for primary stakeholders)
-@app.route("/resources/")
-def resources():
-    resources = [
-    {"name": "NHS Mental Health", "url": "https://www.nhs.uk/mental-health/"},
-    {"name": "Mind UK", "url": "https://www.mind.org.uk/"},
-    {"name": "", "url": ""},
-    {"name": "", "url": ""},
-    {"name": "", "url": ""},
-    {"name": "", "url": ""},
-    {"name": "", "url": ""},
-    {"name": "", "url": ""},
-]
-    return render_template("resources.html", resources = resources)
-
-# A page listing all mental health resources for people to help out others (secondary stakeholders)
-@app.route("/helping_out_others/")
-def help_resources():
-    help_resources = [
-        {"name": "test", "url": ""},
-        {"name": "", "url": ""},
-        {"name": "", "url": ""},
-        {"name": "", "url": ""},
-        {"name": "", "url": ""},
-        {"name": "", "url": ""},
-        {"name": "", "url": ""},
-        {"name": "", "url": ""},
-    ]
-    return render_template("help_resources.html", help_resources = help_resources)
-
-@app.route("/contact_us/")
-def contact_us():
-    return render_template("contact_us.html")
-
 
 @app.route("/test/")
 def test():

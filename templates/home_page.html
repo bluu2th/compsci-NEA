@@ -22,5 +22,46 @@
         <a href = "http://127.0.0.1:5000/resources"> <button> Use these websites to help </button> </a>
         <br> 
         <a href = "http://127.0.0.1:5000/test"> <button> TESTPAGE </button> </a>
+        <br><br><br>
+        
+
+    <textarea id="user_input"></textarea>
+    <button id="send_button">Send</button>
+    <div id="chat_window"></div>
+
+<script defer>
+const input = document.getElementById("user_input");
+const sendBtn = document.getElementById("send_button");
+const chat = document.getElementById("chat_window");
+
+sendBtn.addEventListener("click", () => {
+    const message = input.value;
+    addMessage("You", message);
+    sendToFlask(message);
+    input.value = "";
+});
+
+function sendToFlask(text) {
+    fetch("/chat", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ message: text })
+    })
+    .then(res => res.json())
+    .then(data => {
+        addMessage("Bot", data.reply);
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        addMessage("Bot", "Something went wrong.");
+    });
+}
+
+function addMessage(sender, text) {
+    const msg = document.createElement("div");
+    msg.textContent = `${sender}: ${text}`;
+    chat.appendChild(msg);
+}
+</script>
 
     

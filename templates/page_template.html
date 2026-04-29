@@ -1,0 +1,25 @@
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+  </head>
+  <body>
+    <nav class="navigation_bar">
+        <div class="logo">
+            <a id="logo_text" href="{{ url_for('home_page') }}">
+                <span class="icon">🚪</span>
+                <span class="brand">OpenDoor</span>
+            </a>
+        </div>
+
+        <div class="navigation_buttons">
+            <a href="/resources/"><button>Resources</button></a>
+            <a href="/helping_out_others/"><button>Help Others</button></a>
+            <a href="/contact_us/"><button>Contact Us</button></a>
+        </div>
+    </nav>
+    <div id="content">{% block content %}{% endblock %}</div>
+  </body>
+</html>

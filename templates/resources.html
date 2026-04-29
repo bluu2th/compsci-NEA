@@ -1,15 +1,37 @@
 <!--html code for resources for those in need-->
+{% extends "page_template.html" %}
+{% block title %}OpenDoor{% endblock %}
+{% block content %}
 <head>
     <title>Mental Health Resources</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-    <h1> Here are some resources that may help you... </h1>
-    <p> If you're struggling, you may feel lost or alone. Here are some resources that may help with what you are going through: </p>
-    <ul>
-        {% for item in resources %}
-        <li><a href="{{item.url}}" target="_blank">{{item.name}}</a></li>
-        {% endfor %}
-    </ul>
+    <h1>Resources</h1>
+    <p class="urgent_warning">If you are in urgent danger, please reach out to a helpline or call 999.</p>
+    <p><a href = "https://www.samaritans.org/" target ="_blank"> Samaritans </a></p>
+    <p><a href = "https://www.headstogether.org.uk/programmes/give-us-a-shout/" target ="_blank"> SHOUT </a></p>
+    
+
+    <h2>General</h2>
+    <p><a href="https://www.nhs.uk/nhs-services/mental-health-services/" target="_blank">NHS Mental Health Services</a></p>
+    <p><a href="https://www.mind.org.uk/" target="_blank">Mind UK</a></p>
+    <br><br>
+
+    <h2>Anxiety</h2>
+    <p><a href="https://www.mind.org.uk/anxiety" target="_blank">Mind – Anxiety</a></p>
+    <p><a href="https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/anxiety-fear-panic/" target="_blank">NHS – Anxiety</a></p>
+    <br><br>
+
+    <h2>Depression</h2>
+    <p><a href="https://www.mind.org.uk/depression" target="_blank">Mind – Depression</a></p>
+    <p><a href="https://www.youngminds.org.uk/young-person/mental-health-conditions/depression/" target="_blank">Youngminds - Depression</a></p>
+    <br><br>
+    
+
 </body>
+
+{% endblock %}
+
+ 

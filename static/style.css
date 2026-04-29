@@ -8,9 +8,20 @@ body {
 }
 
 h1{
-    font-size: large;
+    font-size: xx-large;
+    font-style: bold;
 }
 
+h2{
+    font-size: x-large;
+    font-style: bold;
+}
+
+.urgent_warning{
+    color: red;
+    font-size: larger;
+    font-style: bold;
+}
 /* navigation bar */
 .navigation_bar {
     display: flex;
@@ -30,6 +41,15 @@ h1{
     font-weight: bold;
 }
 
+#logo_text {
+    text-decoration: none;
+    color: black;
+}
+
+#logo_text:hover {
+    color: rgba(0,0,0,0.5);
+}
+
 /* buttons on the navigation bar */
 .navigation_buttons button {
     margin-left: 12px;
@@ -43,6 +63,15 @@ h1{
 /* if buttons on the navigation bar are hovered over, it will give a more clean feel */
 .navigation_buttons button:hover {
     background: #d4d4d4;
+}
+
+/* center items on page */
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  border: 3px transparent; 
 }
 
 /* MAIN SECTION */

@@ -1,61 +1,52 @@
 from flask import Flask, jsonify, render_template, url_for, request
-import sqlite3
 import json
 
 app = Flask(__name__)
+punctuation = ["!",'"',"'","£","$","%","^","&","*","(",")","-","_","+","=","{","}","[","]",";",":","@","<",">","/","?","#","~"]
 
 # List of resources
 resources = [
     {
         "name": "NHS Mental Health",
         "url": "https://www.nhs.uk/mental-health/",
-        "tags": [""]
+        "tags": ["general"]
     },
     {
         "name": "Mind UK",
         "url": "https://www.mind.org.uk/",
-        "tags": [""]    
+        "tags": ["general"]    
     },
     {
         "name": "Mind UK - Anxiety",
         "url": "https://www.mind.org.uk/information-support/types-of-mental-health-problems/anxiety/",
-        "tags": ["anxiety", "worry", "panic"]
+        "tags": ["anxiety"]
     },
+        {
+        "name": "NHS - Anxiety",
+        "url": "https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/anxiety-fear-panic/",
+        "tags": ["anxiety"]
+    },
+    {
+        "name": "Mind - Depression",
+        "url": "https://www.mind.org.uk/information-support/types-of-mental-health-problems/depression/about-depression/",
+        "tags": ["depression"]
+    },   
     {
         "name": "YoungMinds - Depression",
         "url": "https://www.youngminds.org.uk/young-person/mental-health-conditions/depression/",
-        "tags": ["depression", "low mood", "sad"]
+        "tags": ["depression"]
     },
     {
         "name": "Samaritans",
         "url": "https://www.samaritans.org/",
-        "tags": ["crisis", "suicidal", "urgent", "harm"]
+        "tags": ["crisis"]
     },
     {
-        "name": "",
-        "url": "",
-        "tags": ["a"]
+        "name": "SHOUT",
+        "url": "https://www.headstogether.org.uk/programmes/give-us-a-shout/",
+        "tags": ["crisis"]
     },
-    {
-        "name": "",
-        "url": "",
-        "tags": ["a"]
-    },
-    {
-        "name": "",
-        "url": "",
-        "tags": ["a"]
-    },
-    {
-        "name": "",
-        "url": "",
-        "tags": ["a"]
-    },
-    {
-        "name": "",
-        "url": "",
-        "tags": ["a"]
-    }
+
 ]
     
 
@@ -65,6 +56,8 @@ def process_message(user_message, resources_list):
     category = classify_message(user_message)
     reply_text = generate_reply(category)
     matched = get_resources(category, resources_list)
+
+
 
     return reply_text, matched
 
@@ -77,26 +70,16 @@ def home_page():
 def chat():
     user_msg = request.json["message"]
     reply, matched = process_message(user_msg, resources)
-    return {"reply": reply, "resources": resources}
+    return {"reply": reply, "resources": matched}
 
 # A page listing all mental health resources from the website (mainly for primary stakeholders)
 @app.route("/resources/")
 def resources_list():
-    return render_template("resources.html", resources = resources)
+    return render_template("resources.html")
 
 # A page listing all mental health resources for people to help out others (secondary stakeholders)
 @app.route("/helping_out_others/")
 def help_resources():
-    help_resources = [
-        {"name": "", "url": ""},
-        {"name": "", "url": ""},
-        {"name": "", "url": ""},
-        {"name": "", "url": ""},
-        {"name": "", "url": ""},
-        {"name": "", "url": ""},
-        {"name": "", "url": ""},
-        {"name": "", "url": ""},
-    ]
     return render_template("help_resources.html", help_resources = help_resources)
 
 @app.route("/contact_us/")
@@ -108,10 +91,14 @@ def contact_us():
 # Classify the message to give resources
 def classify_message(user_message):
     user_message = user_message.lower()
+    user_message = user_message.strip()
+    for p in punctuation:
+        user_message = user_message.replace(p, "")
 
-    crisis_keywords = ["suicide", "kill myself", "end it", "harm", "can't cope"]
-    anxiety_keywords = ["anxiety", "panic", "worried", "overthinking"]
-    depression_keywords = ["depressed", "sad", "empty", "low", "numb"]
+
+    crisis_keywords = ["suicide", "kill myself", "end it", "harm", "cant cope", "crisis"]
+    anxiety_keywords = ["anxiety","anxious", "panic", "worried", "overthinking"]
+    depression_keywords = ["depressed","depression", "sad", "empty", "low", "numb"]
 
     # Check for crisis first (highest priority)
     for word in crisis_keywords:
@@ -161,13 +148,10 @@ def generate_reply(category):
         )
 
     return (
-        "Thank you for sharing how you're feeling. Here are some resources "
+        "Feel free to share how you're feeling. Here are some resources "
         "that might be helpful."
     )
 
-@app.route("/test/")
-def test():
-    return render_template("test.html")
 
 
 

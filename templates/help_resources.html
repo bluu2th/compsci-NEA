@@ -1,15 +1,33 @@
 <!--html code for the page containing links for those who are looking out for other people-->
+{% extends "page_template.html" %}
+{% block title %}OpenDoor{% endblock %}
+{% block content %}
 <head>
-    <title> Helping others in need </title>
+    <title>Help Others</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-    <h1> How to support someone in need... </h1>
-    <p> If you're supporting a friend or loved one, it may feel overwhelming and hard to get through to them. Here are some resources to aid in this: </p>
-    <ul>
-        {% for item in help_resources %}
-        <li><a href="{{item.url}}" target="_blank">{{item.name}}</a></li>
-        {% endfor %}
-    </ul>
+    <h1>Resources For Helping Others</h1>
+    <p class="urgent_warning">If the person you know is in urgent danger, please seek immediate help and call 999.</p>
+    
+
+    <h2>General</h2>
+    <p><a href="https://www.nhs.uk/every-mind-matters/supporting-others/helping-others/" target="_blank">NHS - Supporting Others</a></p>
+    <p><a href="https://www.mind.org.uk/information-support/types-of-mental-health-problems/mental-health-problems-introduction/for-friends-family/" target="_blank">Mind - An Introduction to Mental Health Problems</a></p>
+    <br><br>
+
+    <h2>Anxiety</h2>
+    <p><a href="https://www.mind.org.uk/information-support/types-of-mental-health-problems/anxiety-problems/how-to-help-someone-who-has-anxiety/" target="_blank">Mind - How to help someone who has Anxiety</a></p>
+    <p><a href="https://www.bupa.co.uk/newsroom/ourviews/support-someone-with-anxiety" target="_blank">Bupa - How to help somone who has Anxiety</a></p>
+    <br><br>
+
+    <h2>Depression</h2>
+    <p><a href="https://www.mind.org.uk/information-support/types-of-mental-health-problems/depression/for-friends-and-family/" target="_blank">Mind – How to help someone with Depression</a></p>
+    <p><a href="https://www.nhs.uk/mental-health/advice-for-life-situations-and-events/how-to-help-someone-with-depression/" target="_blank">NHS – How to help someone with Depression</a></p>
+    <br><br>
+    
+
 </body>
+
+{% endblock %}

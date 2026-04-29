@@ -1,1 +1,25 @@
-<p> contact page </p>
+{% extends "page_template.html" %}
+{% block title %}OpenDoor{% endblock %}
+{% block content %}
+<head>
+    <title> Contact Us </title>
+    <style>
+        h1 {
+            text-align: center;
+            font-size: xx-large;
+        }
+        p {
+            text-align: center;
+            font-size: x-large;
+        }
+    </style>
+</head>
+
+<body>
+    <h1> Contact Us here! </h1>
+    <br>
+    <p>Email:  sitecontact@email.example</p>
+    <br>
+    <p>Contact Number: +01 2345 678910</p>
+</body>
+{% endblock %}

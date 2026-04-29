@@ -1,33 +1,29 @@
 <!--html code for the home page of the site-->
+{% extends "page_template.html" %}
+{% block title %}OpenDoor{% endblock %}
+{% block content %}
+    
 <head>
-    <title> OpenDoor </title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        h1{
+            text-align: center;
+            font-size: xx-large;
+        }
+        p{
+            text-align: center;
+            font-size: x-large;
+        }
+
+    </style>
 </head>
-
-
-<body>
-    <nav class="navigation_bar">
-        <div class = "logo">
-            <a href="{{ url_for('home_page') }}">
-                <span class = "icon" style="font-size: 36px;">🚪</span>
-                <span class = "brand" style="font-size: 36px;"><b>OpenDoor</b></span>
-            </a>
-        </div>
-    </nav>
-
     <h1> Welcome to OpenDoor </h1>
         <p> How can we help you today? </p>
-        <a href = "http://127.0.0.1:5000/helping_out_others"> <button> Resources for helping out others </button> </a>
-        <br> 
-        <a href = "http://127.0.0.1:5000/resources"> <button> Use these websites to help </button> </a>
-        <br> 
-        <a href = "http://127.0.0.1:5000/test"> <button> TESTPAGE </button> </a>
-        <br><br><br>
         
-
+    <div class = center>
     <textarea id="user_input"></textarea>
     <button id="send_button">Send</button>
     <div id="chat_window"></div>
+    </div>
 
 <script defer>
 const input = document.getElementById("user_input");
@@ -36,9 +32,22 @@ const chat = document.getElementById("chat_window");
 
 sendBtn.addEventListener("click", () => {
     const message = input.value;
+    if(message === "")
+        return
     addMessage("You", message);
     sendToFlask(message);
     input.value = "";
+});
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+            const message = input.value.trim();
+        if(message === "")
+            return
+        addMessage("You", message);
+        sendToFlask(message);
+        input.value = "";
+    }
 });
 
 function sendToFlask(text) {
@@ -49,7 +58,7 @@ function sendToFlask(text) {
     })
     .then(res => res.json())
     .then(data => {
-        addMessage("Bot", data.reply);
+        addMessage("Bot", data.reply, data.resources);
     })
     .catch(error => {
         console.error("Error:", error);
@@ -57,11 +66,17 @@ function sendToFlask(text) {
     });
 }
 
-function addMessage(sender, text) {
+function addMessage(sender, text, resources = []) {
     const msg = document.createElement("div");
     msg.textContent = `${sender}: ${text}`;
     chat.appendChild(msg);
+    const list = document.createElement("ul")
+    for (const resource of resources) { 
+        const resourceElement = document.createElement("li")
+        resourceElement.innerHTML = ('<a href ="' + resource.url + '">' + resource.name + '</a>')
+        list.appendChild(resourceElement)
+    }
+    msg.appendChild(list)
 }
 </script>
-
-    
+{% endblock %}
